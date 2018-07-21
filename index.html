@@ -273,16 +273,17 @@
     <button>
       <a href="/home">Sign Out</a>
     </button>
-    <h3 id="user">{{ uid }}</h3>
+    <h3 id="user">{{ displayName }}</h3>
     
     <div class="row">
       <div class="col-md-6">
         <h4 id="user-info" class='animated'>Displays all users:</h4>
-        <ul id='profiles'>
-        </ul>
+        <div v-for="profile in profiles" class="card">
+            <h1>hi</h1>
+        </div>
       </div>
       <div class="col-md-6">
-        <button class="mb-1 btn btn-xlg btn-primary btn-rounded">Next Person</button>
+        <button v-on:click='test()' class="mb-1 btn btn-xlg btn-primary btn-rounded">Next Person</button>
       </div>
     </div>
   </div>
@@ -328,7 +329,7 @@
               <input type="text" id='bio' v-model='bio' placeholder="About me...">
             </div>
           </form>
-          <button v-on:click="setGender(), setOrient(), profileInfo()"  class="mb-1 btn btn-primary btn-rounded" role="button" aria-pressed="true">Save Info</button>
+          <button v-on:click="setGender(), setOrient(), profileInfo()" class="mb-1 btn btn-primary btn-rounded" role="button" aria-pressed="true"><a v-bind:href="'#/' + uid + '/home'" class="text-white">Save Info</a></button>
           <a v-bind:href="'#/' + uid + '/home'" class="btn btn-primary btn-rounded">Return Home</a>
         </div>
         <div class="col-md-2"></div>

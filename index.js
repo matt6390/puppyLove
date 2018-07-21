@@ -30,11 +30,32 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      uid: this.$route.params.id
+      uid: this.$route.params.id,
+      displayName: "",
+      profiles: []
     };
   },
-  created: function() {},
-  methods: {},
+  created: function() {
+    var profiles = firebase.database().ref("/profiles/");
+    var arr = [];
+
+    profiles.on("value", snap => {
+      snap.forEach(function(child) {
+        var obj = [];
+        var key = child.key;
+        obj = child.exportVal();
+        obj["userId"] = key;
+        arr.push(obj);
+      });
+      this.profiles = arr;
+      this.displayName = firebase.auth().currentUser.displayName;
+    });
+  },
+  methods: {
+    test: function() {
+      console.log(this.profiles);
+    }
+  },
   computed: {}
 };
 
