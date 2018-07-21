@@ -63,13 +63,49 @@ var UpdateProfilePage = {
           console.log("Making new profile");
           document.getElementById("profile-form").id = "profile-form new";
         } else {
-          console.log("Already had a profile");
+          console.log("Already has a profile");
           // updateUserProfile(params);
           document.getElementById("profile-form").id = "profile-form update";
         }
       });
   },
   methods: {
+    hasProfilePic: function() {
+      var file = document.getElementById("userProfilePic").files[0];
+      if (file) {
+        // console.log(file.name);
+        this.uploadProfilePic(file);
+        return true;
+      } else {
+        console.log("No file selected yet");
+        return false;
+      }
+    },
+
+    uploadProfilePic: function(file) {
+      // Create a root reference
+      var storageRef = firebase.storage().ref();
+
+      // Create a reference to 'images/file'
+      var fileImagesRef = storageRef.child("images/profilePics/" + this.uid);
+
+      //save the picture to storage
+      fileImagesRef.put(file).then(function(snapshot) {
+        //get downloadURL, and then create firebase/database slot to get the pic
+        var progress = 0;
+        while (progress < 100) {
+          document
+            .getElementById("upload-progress")
+            .setAttribute("style", "width: " + progress + "%");
+          progress++;
+        }
+        fileImagesRef.getDownloadURL().then(function(url) {
+          document.getElementById("profile-pic").src = url;
+        });
+        console.log(snapshot);
+      });
+    },
+
     profileInfo: function() {
       var params = {
         age: this.age,
