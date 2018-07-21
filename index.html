@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My App</title>
+
+  <!-- Firebase Initialize -->
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAVbqZHXnw1LBP2OqWb0zEfFzIMMpQiPSk",
+      authDomain: "puppylove-ef329.firebaseapp.com",
+      databaseURL: "https://puppylove-ef329.firebaseio.com",
+      projectId: "puppylove-ef329",
+      storageBucket: "puppylove-ef329.appspot.com",
+      messagingSenderId: "147864883141"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <!-- Code for the Google Login Widget -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+    <script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        callbacks: {
+            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+              // User successfully signed in.
+              // Return type determines whether we continue the redirect automatically
+              // or whether we leave that to developer to handle.
+              return true;
+            }},
+        signInSuccessUrl: '#/signInRedirect',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+          // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID 
+          // firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        ]
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+  <!-- Vue.js scripts -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <!-- Bootstrap scripts -->
+  <!-- Bootstrap v4.0.0 CSS via CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <!-- Plugins required on all pages NOTE: Additional non-required plugins are loaded ondemand as of AppStrap 2.5 -->
+  
+  <!-- Theme style -->
+  <link href="assets/css/theme-style.min.css" rel="stylesheet">
+  
+  
+  <!-- Your custom override -->
+  <link href="assets/css/custom-style.css" rel="stylesheet">
+  
+  
+  
+  <!-- Optional: ICON SETS -->
+  <!-- Iconset: Font Awesome 5.0.4 via CDN -->
+  <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+  <!-- Iconset: flag icons - http://lipis.github.io/flag-icon-css/ -->
+  <link href="assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+  <!-- Iconset: ionicons - http://ionicons.com/ -->
+  <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+  <!-- Iconset: Linearicons - https://linearicons.com/free -->
+  <link href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" rel="stylesheet">
+  
+  
+  <!-- Le fav and touch icons - @todo: fill with your icons or remove, try https://realfavicongenerator.net -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+  <link rel="manifest" href="assets/favicons/manifest.json">
+  <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+  <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  
+  
+  <!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Rambla:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+  
+  <!--Plugin: Retina.js (high def image replacement) - @see: http://retinajs.com/-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+  <!-- Link to javascript page -->
+  <script src="index.js" defer></script>
+    <!--jQuery 3.2.1 via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Popper 1.12.9 via CDN, needed for Bootstrap Tooltips & Popovers -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  
+  <!-- Bootstrap v4.0.0 JS via CDN -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  
+  <!-- JS plugins required on all pages NOTE: Additional non-required plugins are loaded ondemand as of AppStrap 2.5 To disable this and load plugin assets manually simple add data-plugins-manual=true to the body tag -->
+  
+  <!--Custom scripts & AppStrap API integration -->
+  <script src="assets/js/custom-script.js"></script>
+  <!--AppStrap scripts mainly used to trigger libraries/plugins -->
+  <script src="assets/js/script.min.js"></script>
+</head>
+<body>
+  <div id="vue-app">
+    <!-- Header -->
+    <div id="header">
+      <!--Header upper region-->
+      <div class="header-upper">
+        <div class="header-inner container">
+          <!--user menu-->
+          <div class="header-block-flex order-1 mr-auto">
+            <nav class="nav nav-sm header-block-flex">
+              <a class="nav-link d-md-none" href="login.html"><i class="fa fa-user"></i></a>
+              <a class="nav-link text-xs text-uppercase" href="#/">SignUp</a><a class="nav-link text-xs text-uppercase" href="#/">Login</a><a class="nav-link text-xs text-uppercase" href="#/">SignOut</a>
+            </nav>
+            <div class="header-divider header-divider-sm"></div>
+          </div>
+          <!--social media icons-->
+          <div class="nav nav-icons header-block order-12">
+            <a href="#" class="nav-link"> <i class="fab fa-twitter-square icon-1x"></i> <span class="sr-only">Twitter</span> </a>
+            <a href="#" class="nav-link"> <i class="fab fa-facebook-square icon-1x"></i> <span class="sr-only">Facebook</span> </a>
+            <a href="linkedin.com/in/matthew-stone-dev" class="nav-link"> <i class="fab fa-linkedin icon-1x"></i> <span class="sr-only">Linkedin</span> </a>
+            <a href="#" class="nav-link"> <i class="fab fa-google-plus-square icon-1x"></i> <span class="sr-only">Google plus</span> </a>
+          </div>
+        </div>
+      </div>
+      <div data-toggle="sticky">
+        <!--Header & Branding region-->
+        <div class="header">
+          <div class="header-inner container">
+            <!--branding/logo -->
+            <div class="header-brand">
+              <a class="header-brand-text" href="#/" title="Home">
+                <h1 class="h2">
+                  <span class="header-brand-text-alt">Puppy</span>Love<span class="header-brand-text-alt"></span>
+                </h1>
+              </a>
+              <div class="header-divider d-none d-lg-block"></div>
+              <div class="header-slogan d-none d-lg-block">Have a date with a dog</div>
+            </div>
+            <!-- other header content -->
+            <div class="header-block order-12">
+              <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="jpanel-menu" data-target=".navbar-main" data-direction="right"> <i class="fa fa-bars"></i> </a>
+            </div>
+            
+            <div class="navbar navbar-expand-md navbar-static-top">
+              <!--everything within this div is collapsed on mobile-->
+              <div class="navbar-main collapse">
+                <!--main navigation-->
+                <ul class="nav navbar-nav float-lg-right dropdown-effect-fade">
+                  
+                  <!-- Homepages -->
+                  <li class="nav-item dropdown dropdown-mega-menu">
+                    <a href="#/home" class="nav-link dropdown-toggle" id="indexs-drop" data-toggle="dropdown" data-hover="dropdown"> <i class="fa fa-home nav-link-icon"></i> <span class="d-none">Home</span> </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- This is replaced with a template, depending on the page that is loaded -->
+    <router-view></router-view>
+    
+
+    <!-- Footer -->
+    <footer id="footer" class="p-0">
+      <div class="container pt-6 pb-5">
+        <div class="row">
+          <div class="col-md-4">
+            <!--@todo: replace with company contact details-->
+            <h4 class="text-uppercase text-white">
+              Contact Us
+            </h4>
+            <address>
+              <ul class="list-unstyled">
+                <li>
+                  <abbr title="Phone"><i class="fa fa-phone fa-fw"></i></abbr>
+                  019223 8092344
+                </li>
+                <li>
+                  <abbr title="Email"><i class="fa fa-envelope fa-fw"></i></abbr>
+                  info@appstraptheme.com
+                </li>
+                <li>
+                  <abbr title="Address"><i class="fa fa-home fa-fw"></i></abbr>
+                  Sunshine House, Sunville. SUN12 8LU.
+                </li>
+              </ul>
+            </address>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-uppercase text-white">
+              About Us
+            </h4>
+            <p>This is the app that will make you love dogs more</p>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-uppercase text-white">
+              Newsletter
+            </h4>
+            <p>This button doesnt send anything to me</p>
+            <!--@todo: replace with mailchimp code-->
+            <form>
+              <div class="input-group">
+                <label class="sr-only" for="email-field">Email</label>
+                <input type="text" class="form-control" id="email-field" placeholder="Email">
+                <span class="input-group-append">
+                  <button class="btn btn-primary" type="button">Go!</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>  
+      </div>
+      <hr class="my-0 hr-blank op-2" />
+      <!--@todo: replace with company copyright details-->
+      <div class="bg-inverse-dark text-sm py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="mb-0">Site made by <a href="google.com" class="footer-link">Matthew</a> | Copyright 2018 &copy; MattyPete</p>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-inline footer-links float-md-right mb-0">
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <a href="#top" class="btn btn-icon btn-dark pos-fixed pos-b pos-r mr-3 mb-3 scroll-state-hidden" title="Back to top" data-scroll="scroll-state"><i class="fa fa-chevron-up"></i></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+
+<template id="login-page">
+  <div class="vue-component">
+
+    <h1 align="center">Welcome to Puppy Love</h1>
+    <div id="firebaseui-auth-container"></div>
+
+  </div>
+</template>
+
+<template id="home-page">
+  <div class="vue-component">
+      
+    <button id="new">
+      <a v-bind:href="'#/' + uid + '/updateProfile'">Update Profile</a>
+    </button>
+    <button>
+      <a href="/home">Sign Out</a>
+    </button>
+    <h3 id="user">{{ uid }}</h3>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <h4 id="user-info" class='animated'>Displays all users:</h4>
+        <ul id='profiles'>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <button class="mb-1 btn btn-xlg btn-primary btn-rounded">Next Person</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="sign-in-redirect-page">
+  <div class="vue-container">
+    
+  </div>
+</template>
+
+
+<template id="update-profile-page">
+  <div class="vue-container">
+    <div class="container">
+      <div class="row">
+        <div class="profile-form form-control col-md-4">
+          <form id='profile-form'>
+            <div class="form-group">
+              <legend>Age:</legend>
+              <input class="form-control" type="number" v-model='age' placeholder="Over 18, right?" id="age">
+            </div>
+            <div class="form-group">
+              <legend>When is your birthday?</legend>
+              <input class="form-control" type="date" value="1997-09-15" v-model='bday' id="bday">
+            </div>
+            <div class="form-group">
+              <legend>What is your gender?</legend>
+              <input type="radio" name="gender" value="male" checked> Male<br>
+              <input type="radio" name="gender" value="female"> Female<br>
+              <input type="radio" name="gender" id='other-gender-radio' value='Other'> Other
+            </div>
+            <div class="form-group">
+              <legend>What is your orientation?</legend>
+              <input type="radio" name="orientation" value="straight" checked> Straight<br>
+              <input type="radio" name="orientation" value="gay">  Gay<br>
+              <input type="radio" name="orientation" value="lesbian"> Lesbian<br>
+              <input type="radio" name="orientation" value="bisexual">  Bisexual<br>
+              <input type="radio" name="orientation" id='other-orientation-radio' value="Other">  Other
+            </div>
+            <div class="form-group">
+              <legend>Tell us a little about yourself:</legend>
+              <input type="text" id='bio' v-model='bio' placeholder="About me...">
+            </div>
+          </form>
+          <button v-on:click="setGender(), setOrient(), profileInfo()"  class="mb-1 btn btn-primary btn-rounded" role="button" aria-pressed="true">Save Info</button>
+          <a v-bind:href="'#/' + uid + '/home'" class="btn btn-primary btn-rounded">Return Home</a>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="form-control col-md-6">
+          <div class="card col-md-6">
+            <img id="profile-pic" class="card-img" src="http://www.irdconline.com/wp-content/uploads/2018/05/person-placeholder.jpg">
+          </div>
+          <div class="form-group">
+            <label for="userProfilePic">Upload New Profile Picture:</label>
+            <input type="file" class="form-control-file" id="userProfilePic" aria-describedby="fileHelp">
+            <h4>Upload Progress: </h4>
+            <div class="progress mb-3">
+              <div class="progress-bar" id="upload-progress" style="width: 0%"></div>
+            </div>
+            <button class="mb-1 btn btn-block btn-success btn-rounded">Is File There?</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
